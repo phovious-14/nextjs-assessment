@@ -12,16 +12,17 @@ import { CircularProgress } from "@mui/material";
 
 const API_KEY = "59048949-5033-4639-b626-6583d8ac3c98"
 
+declare let window: any
+
 export default function Page() {
 
   const { data }: any = useData()
   const router = useRouter()
   const [loadAprrove, setLoadApprove] = useState(false)
   const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState({});
+  const [msg, setMsg] = useState<any>({});
 
   if (data == null) router.back()
-
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -98,7 +99,7 @@ export default function Page() {
 
       console.log("Approval Transaction Hash :", receipt);
       setOpen(true)
-      if (receipt.hash) {
+      if (receipt?.hash) {
         setLoadApprove(false)
         setMsg({ messege: 'Token swapped!', type: 'success' })
         router.push('/')

@@ -56,14 +56,10 @@ export default function FetchChart({filterDateTime ,token}:any) {
         tooltip: {
           x: {
             format: 'dd MMM yyyy | HH:mm:ss',
-            style: {
-              color: 'black'
-            }
           }
         },
         markers: {
           size: 0,
-          style: 'hollow',
         },
         dataLabels: {
           enabled: false

@@ -8,8 +8,8 @@ import { useState } from "react"
 
 export default function Tokens({ fromChainId, setToken, setVisible }: any) {
 
-  const [tokenList, setTokenList] = useState([])
-  const [filterData, setFilterData] = useState([])
+  const [tokenList, setTokenList] = useState<any>([])
+  const [filterData, setFilterData] = useState<any>([])
 
   const fetcher = async ([url, params]: any): Promise<any> => {
     const query = qs.stringify(params);
@@ -45,7 +45,7 @@ export default function Tokens({ fromChainId, setToken, setVisible }: any) {
     })
 
   const filteringTokens = (token: string) => {
-    setTimeout(() => setFilterData(tokenList.filter((item) => item.symbol.includes(token.toUpperCase()))), 1000)    
+    setTimeout(() => setFilterData(tokenList.filter((item: any) => item?.symbol?.includes(token.toUpperCase()))), 1000)    
   }
 
   return <>

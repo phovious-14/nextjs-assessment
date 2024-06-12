@@ -31,13 +31,13 @@ export default function Page() {
 
   const [fromTokenAddress, setFromTokenAddress] = useState<string>('')
   const [toTokenAddress, setToTokenAddress] = useState<string>('')
-  const [amount, setAmount] = useState(null)
-  const [route, setRoute] = useState(null)
+  const [amount, setAmount] = useState<string>('0.00')
+  const [route, setRoute] = useState<any>(null)
   const [loadRoute, setLoadRoute] = useState(false)
   const [loadRouteTran, setLoadRouteTran] = useState(false)
   
   const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState({});
+  const [msg, setMsg] = useState<any>({});
 
   const API_KEY = "59048949-5033-4639-b626-6583d8ac3c98"
 
@@ -215,7 +215,7 @@ export default function Page() {
 
 
             <div className="flex justify-between items-center flex-row w-full p-2">
-              {route != null ? <h1 className="text-slate-400 font-bold text-xl bg-slate-800 outline-none w-1/2">{(route.userTxs[0].toAmount / Math.pow(10, route.userTxs[0].toAsset.decimals)).toFixed(4)}</h1>
+              {route != null ? <h1 className="text-slate-400 font-bold text-xl bg-slate-800 outline-none w-1/2">{(route?.userTxs[0]?.toAmount / Math.pow(10, route.userTxs[0].toAsset.decimals)).toFixed(4)}</h1>
                 : <h1 className="text-slate-400 font-bold text-xl bg-slate-800 outline-none w-1/2">0.00</h1>
               }
               <div className="flex justify-center items-center flex-row">
@@ -251,7 +251,7 @@ export default function Page() {
           <CircularProgress size={20} className="mb-2 mt-4" />
           <h1 className="text-slate-400 mt-4">Fetching Routes... </h1>
         </>
-        : (route != undefined && amount != null) ? <div className="flex justify-start items-center flex-row w-full p-4 bg-slate-800 mt-4 rounded-md relative border border-violet-500">
+        : (route != undefined && amount != '0.00') ? <div className="flex justify-start items-center flex-row w-full p-4 bg-slate-800 mt-4 rounded-md relative border border-violet-500">
           <Image src={route?.userTxs[0].protocol.icon} alt="" width={35} height={35} className="rounded-full" />
           <div className="flex justify-start items-start flex-col ml-3">
             <h1 className="text-slate-300 font-bold">{route?.userTxs[0].protocol.displayName}</h1>
