@@ -9,10 +9,9 @@ import { useState } from "react";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { CircularProgress } from "@mui/material";
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const API_KEY = "59048949-5033-4639-b626-6583d8ac3c98"
-
-declare let window: any
 
 export default function Page() {
 
@@ -32,8 +31,9 @@ export default function Page() {
   };
 
   const approveTransaction = async () => {
+    const ethereum = await detectEthereumProvider();
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.BrowserProvider(ethereum as any);
 
     await provider.send("eth_requestAccounts", []);
 
