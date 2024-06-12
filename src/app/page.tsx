@@ -1,8 +1,14 @@
 "use client"
 
-import Charts from "@/components/charts"
-import Header from "@/components/Header"
+import dynamic from 'next/dynamic'
 
+const Header = dynamic(() => import("@/components/Header"), {
+  ssr: false,
+})
+
+const Charts = dynamic(() => import("@/components/charts"), {
+  ssr: false,
+})
 
 export default function Home() {
   

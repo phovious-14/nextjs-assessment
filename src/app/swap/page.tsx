@@ -10,9 +10,13 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { useData } from "@/context/DataProvider";
 import { CircularProgress } from "@mui/material";
-import Header from "@/components/Header";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import dynamic from 'next/dynamic'
+
+const Header = dynamic(() => import("@/components/Header"), {
+  ssr: false,
+})
 
 export default function Page() {
 

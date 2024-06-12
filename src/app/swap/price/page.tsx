@@ -16,7 +16,6 @@ const API_KEY = "59048949-5033-4639-b626-6583d8ac3c98"
 export default function Page() {
 
   const { data }: any = useData()
-  const router = useRouter()
   const [loadAprrove, setLoadApprove] = useState(false)
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState<any>({});
@@ -43,7 +42,7 @@ export default function Page() {
       if (data.routerTransactionData.approvalData !== null) {
         const { allowanceTarget, minimumApprovalAmount } = data.routerTransactionData.approvalData;
         const response3 = await fetch(
-          `https://api.socket.tech/v2/approval/check-allowance?chainID=${data.route.userTxs[0].chainId}&owner=${data.route.userTxs[0].sender}&allowanceTarget=${allowanceTarget}&tokenAddress=${data.route.userTxs[0].fromAsset.address}`,
+          `https://api.socket.tech/v2/approval/check-allowance?chainID=${data?.route?.userTxs[0]?.chainId}&owner=${data?.route?.userTxs[0].sender}&allowanceTarget=${allowanceTarget}&tokenAddress=${data?.route?.userTxs[0].fromAsset.address}`,
           {
             method: "GET",
             headers: {
@@ -60,7 +59,7 @@ export default function Page() {
         let allowanceValue = json3.result.value;
         if (minimumApprovalAmount > allowanceValue) {
           const response4 = await fetch(
-            `https://api.socket.tech/v2/approval/build-tx?chainID=${data.route.userTxs[0].chainId}&owner=${data.route.userTxs[0].sender}&allowanceTarget=${allowanceTarget}&tokenAddress=${data.route.userTxs[0].fromAsset.address}&amount=${data.route.fromAmount}`,
+            `https://api.socket.tech/v2/approval/build-tx?chainID=${data?.route.userTxs[0].chainId}&owner=${data?.route.userTxs[0].sender}&allowanceTarget=${allowanceTarget}&tokenAddress=${data?.route.userTxs[0].fromAsset.address}&amount=${data?.route.fromAmount}`,
             {
               method: "GET",
               headers: {
@@ -87,7 +86,7 @@ export default function Page() {
       }
 
       const tx = await signer.sendTransaction({
-        from: data.route.userTxs[0].sender,
+        from: data?.route.userTxs[0].sender,
         to: data.routerTransactionData.txTarget,
         data: data.routerTransactionData.txData,
         value: data.routerTransactionData.value
@@ -101,7 +100,6 @@ export default function Page() {
       if (receipt?.hash) {
         setLoadApprove(false)
         setMsg({ messege: 'Token swapped!', type: 'success' })
-        router.push('/')
       } else {
         setLoadApprove(false)
         setMsg({ messege: 'Transaction Failed', type: 'error' })
@@ -124,37 +122,37 @@ export default function Page() {
         <div className="flex justify-start items-start flex-row w-full">
           <div className="bg-slate-800 mt-4 rounded-md relative p-2 flex justify-start items-center flex-row w-[50%]">
             <Image src={data?.route?.userTxs[0].fromAsset.icon} alt="" width={25} height={25} />
-            <h1 className="ml-2 text-slate-300">{data.route.userTxs[0].fromAmount / Math.pow(10, data.route.userTxs[0].fromAsset.decimals)} </h1>
-            <h2 className="ml-2 text-slate-300">{data.route.userTxs[0].fromAsset.symbol}</h2>
+            <h1 className="ml-2 text-slate-300">{data?.route.userTxs[0].fromAmount / Math.pow(10, data?.route.userTxs[0].fromAsset.decimals)} </h1>
+            <h2 className="ml-2 text-slate-300">{data?.route.userTxs[0].fromAsset.symbol}</h2>
           </div>
           <KeyboardDoubleArrowRightIcon className="mt-6 text-slate-500" />
           <div className="bg-slate-800 mt-4 rounded-md relative p-2 flex justify-start items-center flex-wrap w-[50%]">
-            {data.route.userTxs[0].toAsset.icon != null && <Image src={data.route.userTxs[0].toAsset.icon} alt="" width={25} height={25} className="rounded-full mb-2" />}
+            {data?.route.userTxs[0].toAsset.icon != null && <Image src={data?.route.userTxs[0].toAsset.icon} alt="" width={25} height={25} className="rounded-full mb-2" />}
 
-            <h1 className="ml-2 text-slate-300 mb-2">{(data.route.userTxs[0].toAmount / Math.pow(10, data.route.userTxs[0].toAsset.decimals)).toFixed(6)} {data.route.userTxs[0].toAsset.symbol}</h1>
+            <h1 className="ml-2 text-slate-300 mb-2">{(data?.route.userTxs[0].toAmount / Math.pow(10, data?.route?.userTxs[0]?.toAsset?.decimals))?.toFixed(6)} {data?.route.userTxs[0].toAsset.symbol}</h1>
 
-            <h1 className="ml-2 text-slate-500">(${(data.route.outputValueInUsd).toFixed(2)})</h1>
+            <h1 className="ml-2 text-slate-500">(${(data?.route?.outputValueInUsd)?.toFixed(2)})</h1>
           </div>
         </div>
 
         <div className="flex justify-between items-center flex-row w-full mt-4">
           <h1 className="text-slate-500">Gas Fees:</h1>
           <div className=" flex justify-start items-center flex-row">
-            <h1 className="text-slate-300">{data.route.userTxs[0].gasFees.gasAmount / Math.pow(10, data.route.userTxs[0].gasFees.asset.decimals)} <span>{data.route.userTxs[0].gasFees.asset.symbol}</span></h1>
-            <h1 className="ml-2 text-slate-500">(${data.route.totalGasFeesInUsd.toFixed(4)})</h1>
+            <h1 className="text-slate-300">{data?.route.userTxs[0].gasFees.gasAmount / Math.pow(10, data?.route.userTxs[0].gasFees.asset.decimals)} <span>{data?.route.userTxs[0].gasFees.asset.symbol}</span></h1>
+            <h1 className="ml-2 text-slate-500">(${data?.route?.totalGasFeesInUsd?.toFixed(4)})</h1>
           </div>
         </div>
         <div className="flex justify-between items-center flex-row w-full mt-4">
           <h1 className="text-slate-500">Dex:</h1>
           <div className=" flex justify-start items-center flex-row">
-            <Image src={data.route.userTxs[0].protocol.icon} alt="" width={22} height={22} className="rounded-full" />
-            <h2 className="ml-2 text-slate-500">{data.route.userTxs[0].protocol.displayName}</h2>
+            <Image src={data?.route.userTxs[0].protocol.icon} alt="" width={22} height={22} className="rounded-full" />
+            <h2 className="ml-2 text-slate-500">{data?.route.userTxs[0].protocol.displayName}</h2>
           </div>
         </div>
         <div className="flex justify-between items-center flex-row w-full mt-4">
           <h1 className="text-slate-500">Swap slippage:</h1>
           <div className=" flex justify-start items-center flex-row">
-            <h1 className="text-slate-300">{data.route.userTxs[0].swapSlippage}%</h1>
+            <h1 className="text-slate-300">{data?.route.userTxs[0].swapSlippage}%</h1>
           </div>
         </div>
       </div>

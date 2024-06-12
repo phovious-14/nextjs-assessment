@@ -1,7 +1,7 @@
 'use client'
 import qs from 'qs'
 import useSWR from 'swr'
-import { api_key, api_url_day, api_url_hour, api_url_minute } from '../../constant'
+import { api_key } from '../../constant'
 import { useState } from 'react';
 
 import ReactApexChart from "react-apexcharts";
