@@ -21,7 +21,6 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState<any>({});
 
-  if (data == null) router.back()
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
